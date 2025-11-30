@@ -34,3 +34,13 @@ npm run dev
 3. Tailwind is configured in `tailwind.config.cjs` and loaded via PostCSS config in `postcss.config.cjs`. `src/index.css` includes the Tailwind directives.
 
 Tip: Add Tailwind utility classes to elements in `src/App.jsx` to style them quickly.
+
+## Deployment
+
+This repository is set up to deploy to GitHub Pages via the `gh-pages` branch using GitHub Actions. After a push to `main`, the workflow builds the app and publishes the `dist` folder.
+
+Expected public URL (once the workflow finishes and Pages is enabled for the repo):
+
+https://shanmukha-2007.github.io/S215-SDP05-Hackthon/
+
+If the site does not appear within a few minutes, check the repository's **Settings → Pages** and the **Actions** tab for workflow logs.
