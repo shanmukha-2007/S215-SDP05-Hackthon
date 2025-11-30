@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting…</title>
+    <meta http-equiv="refresh" content="0; url=/S215-SDP05-Hackthon/" />
+    <script>
+      // For SPA paths, preserve the hash and query to forward to the app root
+      (function () {
+        try {
+          const base = '/S215-SDP05-Hackthon/';
+          const target = base + window.location.hash + window.location.search;
+          window.location.replace(target);
+        } catch (e) {
+          // fallback to base
+          window.location.replace('/S215-SDP05-Hackthon/');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to the application…</p>
+  </body>
+</html>
