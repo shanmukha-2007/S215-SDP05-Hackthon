@@ -1,0 +1,23 @@
+import { Link } from "react-router-dom";
+
+export default function CitizenDashboard() {
+  const item =
+    "p-6 bg-white dark:bg-slate-800 rounded-xl shadow hover:shadow-lg transition";
+
+  return (
+    <div className="space-y-6 p-6">
+      <h2 className="text-3xl font-bold text-indigo-600 dark:text-indigo-400">
+        Citizen Dashboard 👤
+      </h2>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        <Link to="/articles" className={item}>📘 Explore Articles</Link>
+        <Link to="/court" className={item}>⚖ Virtual Courtroom</Link>
+        <Link to="/parliament" className={item}>🏛 Parliament Simulator</Link>
+        <Link to="/gamification" className={item}>🎮 Gamification Zone</Link>
+        <Link to="/chatbot" className={item}>🤖 AI Chatbot</Link>
+        <Link to="/profile" className={item}>👤 Profile</Link>
+      </div>
+    </div>
+  );
+}
