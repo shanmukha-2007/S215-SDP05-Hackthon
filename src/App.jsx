@@ -35,31 +35,30 @@ export default function App() {
 
       {/* Page Content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
-
         <Routes>
 
           {/* MAIN ROUTES */}
           <Route path="/" element={<Home />} />
-          <Route path="/articles" element={<Articles />} />
-          <Route path="/articles/:id" element={<ArticleDetails />} />
+          <Route path="articles" element={<Articles />} />
+          <Route path="articles/:id" element={<ArticleDetails />} />
 
-          <Route path="/court" element={<CourtRoom />} />
-          <Route path="/parliament" element={<Parliament />} />
-          <Route path="/simulator" element={<Simulator />} />
-          <Route path="/gamification" element={<Gamification />} />
-          <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="court" element={<CourtRoom />} />
+          <Route path="parliament" element={<Parliament />} />
+          <Route path="simulator" element={<Simulator />} />
+          <Route path="gamification" element={<Gamification />} />
+          <Route path="chatbot" element={<Chatbot />} />
 
           {/* AUTH ROUTES */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="profile" element={<Profile />} />
 
           {/* DASHBOARD ROUTES */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard/citizen" element={<CitizenDashboard />} />
-          <Route path="/dashboard/educator" element={<EducatorDashboard />} />
-          <Route path="/dashboard/legal" element={<LegalExpertDashboard />} />
-          <Route path="/dashboard/admin" element={<AdminDashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/citizen" element={<CitizenDashboard />} />
+          <Route path="dashboard/educator" element={<EducatorDashboard />} />
+          <Route path="dashboard/legal" element={<LegalExpertDashboard />} />
+          <Route path="dashboard/admin" element={<AdminDashboard />} />
 
           {/* 404 PAGE */}
           <Route
@@ -70,7 +69,6 @@ export default function App() {
               </h1>
             }
           />
-
         </Routes>
       </main>
 
