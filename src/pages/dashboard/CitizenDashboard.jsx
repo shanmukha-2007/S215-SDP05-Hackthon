@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function CitizenDashboard() {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    if (role !== "citizen") {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
   const item =
     "p-6 bg-white dark:bg-slate-800 rounded-xl shadow hover:shadow-lg transition";
 
