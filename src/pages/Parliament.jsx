@@ -1,138 +1,75 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AnimatePage from "../components/AnimatePage";
 
-export default function Parliament() {
-  const [billTitle, setBillTitle] = useState("");
-  const [billDesc, setBillDesc] = useState("");
-  const [stage, setStage] = useState("draft"); // draft → debate → vote → result
-  const [votes, setVotes] = useState({ yes: 0, no: 0 });
+export default function Leaderboard() {
+  const [users, setUsers] = useState([]);
 
-  const handleVote = (type) => {
-    setVotes((prev) => ({ ...prev, [type]: prev[type] + 1 }));
-  };
-
-  const resetSimulator = () => {
-    setStage("draft");
-    setVotes({ yes: 0, no: 0 });
-    setBillTitle("");
-    setBillDesc("");
-  };
+  // Load leaderboard from localStorage
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+    setUsers(data);
+  }, []);
 
   return (
     <AnimatePage>
-      <div className="space-y-6 p-6">
-        <h1 className="text-3xl font-bold text-indigo-600">Parliament Simulator 🏛️</h1>
+      <div className="space-y-6 p-6 max-w-3xl mx-auto">
 
-        {/* 📝 BILL DRAFTING */}
-        {stage === "draft" && (
-          <div className="p-6 bg-white shadow rounded-xl space-y-4">
-            <h2 className="text-xl font-semibold">Draft Your Bill</h2>
+        <h1 className="text-3xl font-bold text-indigo-600 text-center">
+          🏆 ConstitutionVerse Leaderboard
+        </h1>
 
-            <input
-              type="text"
-              placeholder="Bill Title..."
-              className="w-full p-3 border rounded-lg"
-              value={billTitle}
-              onChange={(e) => setBillTitle(e.target.value)}
-            />
+        <p className="text-center text-slate-600 dark:text-slate-300">
+          Ranked by XP earned from quizzes, simulations, and activities.
+        </p>
 
-            <textarea
-              placeholder="Describe the purpose of the bill..."
-              className="w-full p-3 border rounded-lg min-h-[120px]"
-              value={billDesc}
-              onChange={(e) => setBillDesc(e.target.value)}
-            />
-
-            <button
-              onClick={() => billTitle && billDesc && setStage("debate")}
-              className="px-4 py-2 bg-indigo-600 text-white rounded shadow"
-            >
-              Proceed to Debate →
-            </button>
+        {/* No Data */}
+        {users.length === 0 && (
+          <div className="card text-center">
+            <p className="text-slate-600 dark:text-slate-300">
+              No leaderboard data yet. Earn XP to appear here!
+            </p>
           </div>
         )}
 
-        {/* 🗣️ DEBATE STAGE */}
-        {stage === "debate" && (
-          <div className="p-6 bg-white shadow rounded-xl space-y-4">
-            <h2 className="text-2xl font-bold">{billTitle}</h2>
-            <p className="text-slate-700">{billDesc}</p>
+        {/* Leaderboard List */}
+        {users.length > 0 && (
+          <div className="space-y-3">
+            {users
+              .sort((a, b) => b.xp - a.xp)
+              .map((user, index) => {
+                const rank =
+                  index === 0 ? "🥇"
+                  : index === 1 ? "🥈"
+                  : index === 2 ? "🥉"
+                  : `#${index + 1}`;
 
-            <h3 className="font-semibold text-lg mt-4">Simulated Debate:</h3>
-            <ul className="list-disc ml-6 text-slate-700 space-y-2">
-              <li>Minister A: This bill brings positive reforms.</li>
-              <li>Minister B: There may be budget issues.</li>
-              <li>Opposition: Further review required.</li>
-              <li>Speaker: Time for voting!</li>
-            </ul>
+                return (
+                  <div
+                    key={index}
+                    className="card flex items-center justify-between px-5 py-4"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="text-2xl">{rank}</span>
 
-            <button
-              onClick={() => setStage("vote")}
-              className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded"
-            >
-              Proceed to Voting →
-            </button>
+                      <div>
+                        <h3 className="font-semibold text-lg">{user.name}</h3>
+                        <p className="text-slate-600 dark:text-slate-300 text-sm">
+                          Joined: {user.joined || "N/A"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <p className="text-xl font-bold text-indigo-600 dark:text-indigo-300">
+                        {user.xp} XP
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
           </div>
         )}
 
-        {/* 🗳️ VOTING STAGE */}
-        {stage === "vote" && (
-          <div className="p-6 bg-white shadow rounded-xl space-y-6">
-            <h2 className="text-2xl font-bold">Voting Session</h2>
-
-            <div className="flex gap-4">
-              <button
-                onClick={() => handleVote("yes")}
-                className="px-4 py-2 bg-green-600 text-white rounded"
-              >
-                👍 Vote YES
-              </button>
-
-              <button
-                onClick={() => handleVote("no")}
-                className="px-4 py-2 bg-red-600 text-white rounded"
-              >
-                👎 Vote NO
-              </button>
-            </div>
-
-            <div className="text-lg">
-              Yes: <span className="font-bold">{votes.yes}</span> | No:{" "}
-              <span className="font-bold">{votes.no}</span>
-            </div>
-
-            <button
-              onClick={() => setStage("result")}
-              className="px-4 py-2 bg-indigo-600 text-white rounded"
-            >
-              Show Result →
-            </button>
-          </div>
-        )}
-
-        {/* 🏆 RESULT STAGE */}
-        {stage === "result" && (
-          <div className="p-6 bg-white shadow rounded-xl space-y-4">
-            <h2 className="text-2xl font-bold">Final Verdict</h2>
-
-            {votes.yes > votes.no ? (
-              <p className="text-green-600 text-xl font-semibold">
-                🎉 Bill PASSED with majority!
-              </p>
-            ) : (
-              <p className="text-red-600 text-xl font-semibold">
-                ❌ Bill REJECTED by the House.
-              </p>
-            )}
-
-            <button
-              onClick={resetSimulator}
-              className="mt-4 px-4 py-2 bg-gray-300 text-black rounded"
-            >
-              Start New Simulation
-            </button>
-          </div>
-        )}
       </div>
     </AnimatePage>
   );
