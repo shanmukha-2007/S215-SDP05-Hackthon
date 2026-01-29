@@ -1,16 +1,18 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const role = localStorage.getItem("role");
+  const [userRole, setUserRole] = useState(null);
 
   // AUTO-REDIRECT if already logged in
   useEffect(() => {
+    const role = localStorage.getItem("userRole");
     if (role) {
+      setUserRole(role);
       navigate(`/dashboard/${role}`);
     }
-  }, [role]);
+  }, [navigate]);
 
   const cardClass =
     "p-6 bg-white dark:bg-slate-800 shadow rounded-xl hover:shadow-lg transition cursor-pointer";
