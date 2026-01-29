@@ -1,4 +1,15 @@
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 export default function EducatorDashboard() {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    if (role !== "educator") {
+      navigate("/dashboard");
+    }
+  }, [navigate]);
   const card =
     "p-6 bg-white dark:bg-slate-800 rounded-xl shadow hover:shadow-lg transition";
 
