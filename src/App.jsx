@@ -28,14 +28,15 @@ import Footer from "./components/Footer";
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900">
+    <div className="min-h-screen flex flex-col text-slate-900 dark:text-slate-100">
 
       {/* Navbar */}
       <Header />
 
       {/* Page Content */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 py-6">
-        <Routes>
+      <main className="flex-1 w-full px-4 py-6 bg-white/90 dark:bg-slate-900/90">
+        <div className="max-w-7xl mx-auto">
+          <Routes>
 
           {/* MAIN ROUTES */}
           <Route path="/" element={<Home />} />
@@ -70,6 +71,7 @@ export default function App() {
             }
           />
         </Routes>
+        </div>
       </main>
 
       <Footer />
